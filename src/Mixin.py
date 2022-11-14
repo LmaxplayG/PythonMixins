@@ -1,5 +1,7 @@
 """
-MixinPy
+Mixit
+
+A mixin library for Python
 
 Authors:
 Lmaxplay (Discord ID: 941433256010727484, GitHub: LmaxplayG)
