@@ -147,6 +147,13 @@ def inject_at_match(at: At, match_instructions: list[dis.Instruction], target_in
 
 
 class Mixin:
+    """
+    Represents a mixin to be injected into a function at a specific location.
+
+    Note:
+    - Mixins use the local and global scope of the function they are injected into.
+    - Variables can be added as arguments of the function (makes intellisense happy)
+    """
     def __init__(self, target, at: At, force_ret = False):
         self.target = target
         self.at = at
