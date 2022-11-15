@@ -32,6 +32,10 @@ class Head(Location):
     def matches(self, target):
         yield 0 + self.offset
 
+class Tail(Location):
+    def matches(self, target):
+        yield len(target) - 1 + self.offset
+
 class Opcode(Location):
     def matches(self, target):
         idxs = sorted([
@@ -56,6 +60,9 @@ class Match(Location):
     def __init__(self, *args, **kwargs):
         """
         Match certain instructions in a function.
+
+        Bugs:
+        for now, don't use ordinal with this, it doesn't work yet
         """
         super().__init__(*args, **kwargs)
         self.arg = disassemble(self.arg)[:-1]
@@ -76,6 +83,8 @@ class Match(Location):
         return self
 
     def matches(self, target):
+        print(dir(op for op in self.arg))
+        ops = [op for op in self.arg]
         target_s = [[op.opcode, op.argval] for op in target]
         match_s = [[op.opcode, op.argval] for op in self.arg]
         idxs = []
@@ -88,4 +97,3 @@ class Match(Location):
             yield idxs[self.ordinal]
         else:
             yield from idxs
-
