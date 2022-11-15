@@ -1,6 +1,6 @@
 import dis
 
-def disassemble(code):
+def disassemble(code: list[dis.Instruction]):
     instructions = list(dis.get_instructions(code))
     for idx, op in enumerate(instructions):
         if op.is_jump_target:
@@ -10,7 +10,7 @@ def disassemble(code):
                     op2.target = op
     return instructions
 
-def compute_stack_effect(segment, retmax=False): # returns stack_effect and max stack value
+def compute_stack_effect(segment: list[dis.Instruction], retmax=False): # returns stack_effect and max stack value
     SE = 0
     idx = 0
     effects = []
@@ -31,7 +31,7 @@ def compute_stack_effect(segment, retmax=False): # returns stack_effect and max 
         return max(effects)
     return SE
 
-def reassemble(func, segment):
+def reassemble(func, segment: list[dis.Instruction]):
     consts = func.__code__.co_consts
     names = func.__code__.co_names
     varnames = func.__code__.co_varnames

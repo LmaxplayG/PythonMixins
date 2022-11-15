@@ -1,5 +1,5 @@
-from utils import *
-from locations import *
+from .utils import *
+from .locations import *
 
 class Mixin:
     def __init__(self, target, at, force_ret=False, globals={}):

@@ -1,4 +1,4 @@
-from utils import disassemble
+from .utils import disassemble
 
 class Location:
     def __init__(self, arg=None, ordinal=None, offset=0):
@@ -49,6 +49,9 @@ class Return(Opcode):
 
 class Match(Location):
     def __init__(self, *args, **kwargs):
+        """
+        Match certain instructions in a function.
+        """
         super().__init__(*args, **kwargs)
         self.arg = disassemble(self.arg)[:-1]
 
@@ -60,6 +63,9 @@ class Match(Location):
 
     @classmethod
     def after(cls, *args, **kwargs):
+        """
+        Match after the matches instead of before.
+        """
         self = cls(*args, **kwargs)
         self.offset = len(self.arg)
         return self
