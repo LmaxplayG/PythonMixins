@@ -2,7 +2,7 @@ from .utils import *
 from .locations import *
 
 class Mixin:
-    def __init__(self, target, at, force_ret=False, globals={}):
+    def __init__(self, target, at: Location, force_ret=False, globals={}):
         self.target = target
         self.at = at
         self.force_ret=force_ret

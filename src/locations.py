@@ -47,6 +47,11 @@ class Return(Opcode):
         super().__init__(*args, **kwargs)
         self.arg = 'RETURN_VALUE'
 
+class Call(Opcode):
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.arg = 'CALL_FUNCTION'
+
 class Match(Location):
     def __init__(self, *args, **kwargs):
         """
@@ -83,3 +88,4 @@ class Match(Location):
             yield idxs[self.ordinal]
         else:
             yield from idxs
+
