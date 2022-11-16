@@ -1,4 +1,4 @@
-from ..src import Mixin, Opcode, Head, Return, Match
+from mixin import Mixin, Opcode, Head, Return, Match
 
 def test():
     flag = "flag"
