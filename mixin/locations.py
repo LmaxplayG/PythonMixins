@@ -1,4 +1,5 @@
 from .utils import disassemble
+import sys
 
 class Location:
     def __init__(self, arg=None, ordinal=None, offset=0):
@@ -52,9 +53,16 @@ class Return(Opcode):
         self.arg = 'RETURN_VALUE'
 
 class Call(Opcode):
-    def __init__(self, *args, **kwargs):
+    def __init__(self, at_precall: bool = True, *args, **kwargs):
         super().__init__(*args, **kwargs)
-        self.arg = 'CALL_FUNCTION'
+        # Python 3.11 uses CALL, Python 3.10 uses CALL_FUNCTION
+        if sys.version_info.minor >= 11:
+            if at_precall:
+                self.arg = 'PRECALL'
+            else:
+                self.arg = 'CALL'
+        else:
+            self.arg = 'CALL_FUNCTION'
 
 class Match(Location):
     def __init__(self, *args, **kwargs):
@@ -83,7 +91,6 @@ class Match(Location):
         return self
 
     def matches(self, target):
-        print(dir(op for op in self.arg))
         ops = [op for op in self.arg]
         target_s = [[op.opcode, op.argval] for op in target]
         match_s = [[op.opcode, op.argval] for op in self.arg]
